@@ -1,3 +1,10 @@
+.venv/
+.env
+__pycache__/
+.pytest_cache/
+*.pyc
+results/
+.idea/
 # Python virtual environment
 .venv/
 venv/
@@ -41,3 +48,5 @@ debates/
 # OS files
 .DS_Store
 Thumbs.db
+# Downloaded source PDFs and local ingestion manifests
+data/

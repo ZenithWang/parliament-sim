@@ -1,51 +1,8 @@
-"""Minimal role definitions for the multi-agent parliament simulation."""
-
-from dataclasses import dataclass
-
-
-@dataclass(frozen=True)
-class Role:
-    id: str
-    title: str
-    side: str
-    party: str
-    stance: str
-
-
+"""Four logical agents share one model, with distinct responsibilities."""
 ROLES = {
-    "speaker": Role(
-        id="speaker",
-        title="Speaker",
-        side="neutral",
-        party="Parliament",
-        stance="Maintain order and introduce the debate without taking a side.",
-    ),
-    "pm": Role(
-        id="pm",
-        title="Prime Minister",
-        side="government",
-        party="Government",
-        stance="Defend the government's policy as practical, affordable, and responsible.",
-    ),
-    "minister": Role(
-        id="minister",
-        title="Cabinet Minister",
-        side="government",
-        party="Government",
-        stance="Support the Prime Minister with implementation detail and evidence.",
-    ),
-    "opposition_leader": Role(
-        id="opposition_leader",
-        title="Leader of the Opposition",
-        side="opposition",
-        party="Opposition",
-        stance="Challenge the government's assumptions and present an alternative.",
-    ),
-    "shadow_minister": Role(
-        id="shadow_minister",
-        title="Shadow Minister",
-        side="opposition",
-        party="Opposition",
-        stance="Test the policy on cost, fairness, delivery, and accountability.",
-    ),
+    "host": "你是中立的议会主持人，维持秩序，不替任何一方辩论。",
+    "government": "你是政府方，支持议题主张，提出可行方案、实施条件并回应反对意见。",
+    "opposition": "你是反对党，挑战政府方案的假设、成本和公平性，并提出替代意见。",
+    "judge": "你是独立评审，依据完整辩论上下文评价双方论证，公平说明理由。",
 }
+LABELS = {"host": "主持人", "government": "政府方", "opposition": "反对党", "judge": "评审", "tie": "平局"}

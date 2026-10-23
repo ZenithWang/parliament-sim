@@ -1,36 +1,26 @@
-# Project Status
+# 项目状态
 
-Current goal: compare strategy algorithms for multi-agent parliamentary dialogue.
+第一版现为 LangChain + LangGraph + DeepSeek 的四角色中文命令行辩论系统。
 
-## Kept
+- 模型生成所有角色发言和独立评审，固定规则控制 1–5 轮流程。
+- 支持完整上下文、JSON 评审、一次格式修正、节点完成即保存、离线演示。
+- 原算法实验、规则评分、投票、检索、人工介入和断点恢复已移除。
+- 当前安装、使用和测试说明以 README.md 为准。
 
-- Fixed multi-agent debate flow.
-- Six strategy algorithms: baseline, heuristic rule, genetic, react, monte carlo, bandit.
-- Short-term debate memory for strategy decisions.
-- Shared evaluator.
-- Final voting panel with five fixed voter profiles.
-- Repeated experiment runner.
-- CSV summaries and detailed transcripts.
+## 2026-10-18 验证
 
-## Removed
+- 16 项离线自动化测试通过；依赖一致性检查通过。
+- 使用 DeepSeek `deepseek-chat` 完成真实三轮“四天工作制”辩论，10 条发言记录、一次有效评审，运行成功。
+- 人工检查：第二轮政府回应成本与公平争议；第三轮回应退出机制和评估可比性。评审引用了存在的双方第1–3轮记录，给出四维分数、优缺点和整体平局判定；没有强制求和决定胜负。
+- 真实结果位于本地 `results/20261018T100749_b30c1eca/`，默认不纳入版本控制。真实调用使用进程内密钥，未写入仓库。
+- 重构前未提交工作已完整备份至仓库外 `/home/zenith/Projects/parliament-sim-backups/before-v1-20261018.tar.gz`。
 
-- LangGraph workflow.
-- PMQs mode.
-- Voting system.
-- Separate agent modules.
-- Standalone algorithm demos.
-- Research-suite wrapper.
+## 第二版 · 2026-10-18
 
-## Main Commands
-
-```bash
-python main.py --mock-llm
-python run_experiment.py --mock-llm --strategy heuristic_rule --runs 2
-python test_all_algorithms.py
-```
-
-`main.py` now prints the debate turn by turn, including strategy moves,
-evaluation scores, and the final vote.
-
-Use one strategy per experiment run. For example, use `--runs 20` for `bandit`
-so its run-level memory can learn from rewards.
+- 已实现本地 PDF/Markdown 入库、DashScope 嵌入、独立 Redis 向量索引和自主工具调用子图。
+- `--rag` 启用知识库，原有命令保留。每次发言最多2次工具调用，支持缓存、来源引用与评审证据点评。
+- 已导入两份公开报告共241个片段，中文检索验证成功。
+- 34项测试通过，真实三轮辩论完成，10次工具调用，六次发言均有有效引用。
+- 真实运行：`results/20261018T132550_6505d735/`。完整验证与已知局限见 docs/V2_VALIDATION.md，代码讲解见 docs/V2_WALKTHROUGH.md。
+- 第一版重构前备份：`/home/zenith/Projects/parliament-sim-backups/before-v2-20261018.tar.gz`。
+- 本次未提交或推送；原始PDF和真实结果保持本地忽略。
